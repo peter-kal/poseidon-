@@ -41,7 +41,7 @@ parts:
 
 apps: 
   poseidon: 
-   command: poseidon-
+   command: pass_gen
    extensions: [flutter-dev]
    plugs:
     - wayland 
