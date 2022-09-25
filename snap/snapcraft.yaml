@@ -4,18 +4,16 @@ version: '0.1'
 summary: A Flutter-Based Password Generator 
 description: |
   Poseidon is a modern flutter password generator for linux.
+  Just type the lenght of the Password, choose if you want 
+  number,Capital or small letters and Symbols 
+  Hit Generate and you are done
 
 grade: devel 
 confinement: strict  
 architectures:
   - build-on: [ amd64 ]
   - build-on: [ arm64 ]
-
-
-
-
 compression: lzo 
-
 plugs: 
  gnome-3-28-1804:
     interface: content
@@ -30,8 +28,6 @@ plugs:
     interface: content
     target: $SNAP/share/themes
     default-provider: gtk-common-themes:gtk-3-themes
-
-
 environment:
   XDG_DATA_DIRS: $SNAP/share:$XDG_DATA_DIRS
 
@@ -39,16 +35,15 @@ parts:
   poseidon:
     # See 'snapcraft plugins'
     plugin: flutter 
-    source: https://github.com/peter-kal/poseidon.git
+    source: https://github.com/peter-kal/poseidon-.git
     flutter-target: lib/main.dart
     
 
 apps: 
   poseidon: 
-   command: pass_gen
-   extensions: [flutter-stable]
+   command: poseidon-
+   extensions: [flutter-dev]
    plugs:
     - wayland 
-    - desktop
-    - desktop-legacy
-    - unity7     
+    - x11
+    - desktop 

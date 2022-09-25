@@ -132,7 +132,7 @@ class LastButton extends StatelessWidget{
          builder: (context) => AlertDialog(
           backgroundColor: Color.fromARGB(255, 189, 217, 250),
           title: const Text("Your Password: "),
-          content: Text("mak._password"),
+          content: SelectableText("mak._password"),
           
           ),
          );
