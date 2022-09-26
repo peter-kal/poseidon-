@@ -8,6 +8,7 @@ description: |
   number,Capital or small letters and Symbols 
   Hit Generate and you are done
 
+compression: lzo 
 grade: devel 
 confinement: strict  
 architectures:
@@ -20,10 +21,7 @@ plugs:
     target: gnome-platform
     default-provider: gnome-3-28-1804:gnome-3-28-1804
 
- icon-themes:
-    interface: content
-    target: $SNAP/share/icons
-    default-provider: gtk-common-themes:icon-themes
+ 
  gtk-3-themes:
     interface: content
     target: $SNAP/share/themes
@@ -42,7 +40,7 @@ parts:
 apps: 
   poseidon: 
    command: pass_gen
-   extensions: [flutter-dev]
+   extensions: [flutter-stable]
    plugs:
     - wayland 
     - x11
