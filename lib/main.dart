@@ -12,8 +12,8 @@ import 'dart:io';
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowTitle('Poseidon');
-    setWindowMaxSize(const Size(590, 490));
-    setWindowMinSize(const Size(490, 450));
+    setWindowMaxSize(const Size(550, 450));
+    setWindowMinSize(const Size(450, 450));
   }
 
 
@@ -21,17 +21,8 @@ import 'dart:io';
  }
 
 
-class passvariables{//Not Ready yet 
-  bool _isWithLetters = true;
-  bool _isWithUppercase = false;
-  bool _isWithNumbers = false;
-  bool _isWithSpecial = false;
-  double _numberCharPassword = 8;
-  String password = ''; 
 
 
-
-}
 
 
 
@@ -118,34 +109,6 @@ class _MyHomePageState extends State<MyHomePage>{
 
 
 
-class LastButton extends StatelessWidget{
-  
-  @override
-  Widget build(BuildContext context){
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center ,
-    children: [
-      
-      ElevatedButton(
-      onPressed: () {
-        showDialog(context: context,
-         builder: (context) => AlertDialog(
-          backgroundColor: Color.fromARGB(255, 189, 217, 250),
-          title: const Text("Your Password: "),
-          content: SelectableText("mak._password"),
-          
-          ),
-         );
-      }, 
-      child: const Text("Generate Password")),
-      
-     
-    ],
-
-  );
- } 
-}
-
 
 
 //How many digits the password should have 
@@ -155,7 +118,7 @@ class Digit_Number extends StatefulWidget{
 }
 class _Digit_NumberState extends State<Digit_Number>{
   
-  var passwordlenght ; 
+  double passwordlenght = 1; 
   TextEditingController textController = TextEditingController();
   void dispose() {
     textController.dispose();
@@ -172,6 +135,7 @@ class _Digit_NumberState extends State<Digit_Number>{
       width: 550.0,
       child: 
     TextField(
+     keyboardType: TextInputType.number,
      controller: textController,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
@@ -180,7 +144,9 @@ class _Digit_NumberState extends State<Digit_Number>{
         
       ),
       onChanged: (value){
-        setState(() {});
+        setState(() {
+          passwordlenght = value as double ;
+        });
       }
     ),
     ),
@@ -277,7 +243,7 @@ class _AllowUpperState extends State<AllowUpper>{
             setState((){
               check3 = value;
             });
-              
+
             
             
           }
@@ -319,9 +285,63 @@ class _AllowNUmbersState extends State<AllowNumbers>{
   }
 }
 
+class Passwars{
+//Objects 
+ _AllowNUmbersState nu = _AllowNUmbersState();
+ _AllowUpperState up = _AllowUpperState();
+ _Digit_NumberState di = _Digit_NumberState();
+ _AllowSymbolsState sy =_AllowSymbolsState();
+
+
+  bool _isWithLetters = true;
+  late bool _isWithUppercase = up.check3 as bool;
+  late bool _isWithNumbers = nu.check4 as bool ;
+  late bool _isWithSpecial = sy.check2 as bool;
+  late double _numberCharPassword = di.passwordlenght;
+  
+  final password = RandomPasswordGenerator();
+
+  late String newPassword = password.randomPassword(   
+    
+    numbers: _isWithNumbers,
+    passwordLength: _numberCharPassword,
+    specialChar: _isWithSpecial,
+    uppercase: _isWithUppercase
+    );
+
+
+}
 
 
 
+
+class LastButton extends StatelessWidget{
+  Passwars war = Passwars();
+  @override
+  Widget build(BuildContext context){
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center ,
+    children: [
+      
+      ElevatedButton(
+      onPressed: () {
+        showDialog(context: context,
+         builder: (context) => AlertDialog(
+          backgroundColor: Color.fromARGB(255, 189, 217, 250),
+          title: const Text("Your Password: "),
+          content: SelectableText(war.newPassword),
+          
+          ),
+         );
+      }, 
+      child: const Text("Generate Password")),
+      
+     
+    ],
+
+  );
+ } 
+}
 
 
 
